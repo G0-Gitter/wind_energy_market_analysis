@@ -1,0 +1,489 @@
+wind_technical_summary
+
+**********************
+Analyst #1
+The objective of this analysis was to understand the size distribution of wind turbines based on their capacity (t_cap). To determine the size distribution of wind turbines, the SQL query was executed in pgadmin. The results of the SQL query were imported into Tableau to create a bar chart that visualizes the distribution of wind turbine capacities.
+Identify the manufacturers of wind turbines and their respective market shares. This analysis was to identify the manufacturers of wind turbines and determine the number of retrofitted turbines for each manufacturer. This was achieved by extracting relevant data using an SQL query and visualizing the results in Tableau. The bar chart highlights the leading manufacturers in terms of retrofitted turbines. It shows that manufacturers such as GE Wind, Siemens Gamesa Renewable Energy, and Bonus have a higher number of retrofitted turbines, indicating their active involvement in upgrading and maintaining their turbines.
+The results of the SQL query were imported into Tableau to create a heat map that visualizes the number of retrofitted turbines by manufacturer, along with additional data on total turbines and retrofit percentages. This heat map shows the number of turbines, retrofits, and retrofit percentages for various manufacturers. It provides a clear view of which manufacturers have the most retrofitted turbines, indicating potential maintenance needs. The project successfully addressed the three key questions through SQL data extraction and Tableau visualizations. The analysis provided insights into the size distribution of wind turbines, identified the leading manufacturers, and highlighted which manufacturers might require more maintenance based on retrofit data. These findings are valuable for stakeholders in the wind energy sector, aiding in decision-making regarding turbine purchases, maintenance strategies, and market positioning. Future analyses could include more detailed breakdowns by region, turbine model, and specific maintenance costs. Additionally, integrating more data sources could provide a comprehensive view of the factors influencing turbine performance and longevity.
+
+
+**********************
+Analyst #2
+Determining locations and output power of turbines across the U.S. started by exploring the data sets provided in the data sprint guidelines, getting familiar with the columns and data dictionary. When looking into creating a visualization for turbine locations and output power, I focused on using values like xlong, ylat, and t_cap (output power) to make a map. First, in order to use the longitude and latitude columns, I had to convert the xlong and ylat values into geographical roles when putting them into the columns and rows. This created a map showing each individual turbine throughout the 44 states (plus Guam and Puerto Rico). Once the turbine locations were made, I used the t_cap value to visualize output power by size and color based on the output capacity range from 50 – 6000 kilowatts (kW). This allowed the turbine locations to be more differentiated by having lower capacity turbines being smaller and colored red while higher capacity turbines were bigger and colored green. Finally, for our map we wanted to animate the turbine locations as the number of years passed using p_year (year turbine became operational and began providing power). P_year was put into the pages card and edited to make the map become cumulative of the turbine locations from 1981-2021.
+
+A separate map visualization was also made showing the onshore and offshore wind turbines in America. This was done by taking the map made from my work mentioned above and removing the details of color and size based on the output power. A filter was placed from the EIA dataset using the “Reported Prime Mover” value, which showed the onshore and offshore turbines. Once the map was finished, it showed only one area where offshore wind turbines were installed. Specifically, 5 offshore turbines off the coast of Rhode Island. 
+
+The next task was focusing on wind turbines and comparing it to population data. At first, I was struggling to find any population data that could be used from the datasets provided to us. I ultimately ended up using the data layers in Tableau to find the population size of 2018. This was further specified by looking at population sizes of counties in all states in America. Was able to overlay the wind turbine locations used in work on locations and power of turbines and show which areas are more abundant in turbine quantity. 
+
+Analyzing average wind speeds overlaid on a map of all wind turbines in the U.S. to show potential opportunities was a last-minute addition of a task we were unsure of adding. However, wind speed maps were made available showing the surface levels of 30 and 60 meters. This allowed me to import images of the wind maps into Tableau and make a dashboard showing the two maps with the turbine locations placed. This allowed further insight towards why the center of the U.S. had more turbines installed by showing the greater wind speeds available in states like Texas, Kansas, and Iowa. It also shows why certain states have no turbines installed from 1981-2021 such as Alabama and Georgia, having the lowest annual wind speeds (<4.0 meters/second).  
+
+For remaining items related to holistic analysis I was able to answer the question about number of onshore vs offshore turbines from work I had already done. Next task was to research about the profitability of the wind industry. I was able to find several sources through external research but had difficulties finding the exact information needed to answer the question efficiently. All the resources and comments regarding their information were stored in the Trello dashboard in the comments.  
+
+**********************
+Analyst #3	
+I began by reading the provided API Dictionary for the data and performed basic exploration analysis of the data set “wind_turbine_20220114-o2.csv” in python jupyter lab (named as such to preserve the original data in case I messed up.)
+Columns identified for my analysis: 
+Locations: t_state, t_county, xlong, ylat
+Owners: p_name, eia_id
+Energy: p_tnum, p_cap
+Exploring Nulls of note for my analysis 
+p_cap 4482 - Capacity of total turbines in plant MW 
+eia_id 5793 - plant Id 
+Ran a preliminary viz on python of ‘p_name’, ‘p_cap’
+
+Prelim Viz in Tableau 
+
+Year 1981 - 2021 p_year
+Check out months 
+Checking out Nulls in Tableau, looks like I’ll just use the auto filtering system in tableau to filter related nulls to the viz.
+Trying to sort out if sum or avg for p_cap is best. 
+Sorting out plants by owner 
+How to determine what plants are appropriate for ‘Approach to Fund’ 
+
+Find the avg turbines in general 
+104 turbines
+Find the avg p_cap 
+Find the avg Net MWH 
+	265,109.86 (Net MWH)
+
+List of possible funding based off from p_Tnum and avg.P_cap under 300 turbines
+Southwestern Public Service Co (239 turb, 522.8 avg, 9 plant)
+Hale Wind Energy (239 turb, 478 avg, 1 plant)
+Mesquite Star LLC (118 turb, 418.9 avg, 1 plant)
+Jordan Creek Wind Farm, LLC (150 turb, 401.9 avg, 1 plant)
+High Lonesome Wind Power, LLC (164 turb, 401.2 avg, 1 plant)
+Logan Wind Energy LLC (134 turb, 400.5 avg, 1 plant)
+FPL Peetz Table Wind Energy (133 turb, 400.5 avg, 1 plant)
+Union Electric Co - MO (175 turb, 400 avg, 20 plant)
+Foard City Wind, LLC (137 turb, 350.3 avg, 1 plant)
+Mohave County Wind Farm (126 turb, 349.6 avg, 1 plant)
+
+Finding wnd only op
+1,243
+
+Finding what other forms of power co have.
+AE Power Services LLC, {'WND', 'OTH'}
+AES Distributed Energy, {'WND', 'SUN', 'OTH'}
+AES Wind Generation Inc, {'WND', 'OTH'}
+ALLETE, Inc., {'WWW', 'COL', 'WND', 'HYC', 'DFO', 'NG'}
+Algonquin Power Co, {'SUN', 'WND'}
+Ameren Illinois, {'SUN', 'WND', 'OTH', 'NG'}
+American Mun Power-Ohio, Inc, {'SUN', 'WND', 'HYC', 'DFO', 'NG'}
+Auwahi Wind Energy LLC, {'OTH', 'WND'}
+Avangrid Renewables LLC, {'SUN', 'WND'}
+Axium Arizona Renewables, LLC, {'SUN', 'WND'}
+BHE Renewables, LLC, {'SUN', 'WND'}
+Basin Electric Power Coop, {'WOO', 'COL', 'WND', 'DFO', 'NG'}
+Black Hills Colorado Electric, LLC, {'WND', 'DFO', 'NG'}
+Black Hills Service Company LLC, {'WND', 'NG'}
+Brookfield Renewable Trading and Marketing LP, {'HYC', 'SUN', 'WND'}
+Capital Dynamics, {'SUN', 'WND'}
+Capital Power Corporation, {'SUN', 'WND'}
+Carleton College, {'WND', 'DFO', 'NG'}
+Casa Mesa Wind, LLC, {'OTH', 'WND'}
+City of Algona - (IA), {'WND', 'DFO', 'NG'}
+City of Fremont - (NE), {'SUN', 'COL', 'WND', 'DFO', 'NG'}
+City of Geneseo - (IL), {'WND', 'SUN', 'DFO', 'NG'}
+City of Lamar - (CO), {'COL', 'WND', 'DFO', 'NG'}
+City of Moorhead - (MN), {'WND', 'DFO'}
+City of Mountain Lake - (MN), {'WND', 'DFO', 'NG'}
+City of Osage - (IA), {'WND', 'SUN', 'DFO', 'NG'}
+City of Worthington - (MN), {'WND', 'DFO'}
+Consolidated Edison Development Inc., {'SUN', 'WND', 'OTH'}
+Consolidated Edison Solutions Inc, {'SUN', 'WND'}
+Consumers Energy Co, {'SUN', 'HPS', 'COL', 'WND', 'HYC', 'RFO', 'OTH', 'DFO', 'NG'}
+DTE Electric Company, {'NG', 'PC', 'OOG', 'WOO', 'SUN', 'COL', 'WND', 'RFO', 'OTH', 'DFO', 'NUC'}
+Duke Energy DEGS Notrees, {'OTH', 'WND'}
+EDF Renewable Asset Holdings, Inc., {'SUN', 'WND', 'OTH'}
+EPP Renewable Energy, {'SUN', 'WND', 'NG', 'MLG'}
+Empire District Electric Co, {'WOO', 'COL', 'WND', 'HYC', 'OTH', 'DFO', 'NG'}
+Enel Green Power NA, Inc., {'SUN', 'WND'}
+Energy Northwest, {'SUN', 'WND', 'HYC', 'OTH', 'NUC'}
+Engie North America, {'WOO', 'SUN', 'WND', 'DFO', 'NG'}
+Evergreen Wind, LLC, {'SUN', 'WND', 'OTH'}
+Evergy Kansas Central, Inc, {'COL', 'WND', 'DFO', 'NG'}
+Evergy Metro, {'COL', 'WND', 'OTH', 'DFO', 'NG'}
+FPL Energy Illinois Wind LLC, {'OTH', 'WND'}
+GlidePath Power Operations LLC, {'WND', 'OTH'}
+Golden Spread Electric Cooperative, Inc, {'WND', 'NG'}
+Golden Valley Elec Assn Inc, {'WOO', 'WOC', 'COL', 'WND', 'RFO', 'OTH', 'DFO'}
+Green Mountain Power Corp, {'WOO', 'SUN', 'WND', 'HYC', 'OTH', 'DFO'}
+Greenbacker Renewable Energy Corporation, {'SUN', 'WND'}
+Harbec Energy, {'WND', 'NG'}
+Interstate Power and Light Co, {'SUN', 'COL', 'WND', 'OTH', 'DFO', 'NG'}
+Invenergy Services LLC, {'SUN', 'WND', 'OTH', 'DFO', 'NG'}
+Kodiak Electric Assn Inc, {'HYC', 'WND', 'DFO', 'OTH'}
+Kotzebue Electric Assn Inc, {'OTH', 'DFO', 'WND'}
+Lake Region Community Hybrid, LLC, {'SUN', 'WND'}
+Lincoln Electric System, {'MLG', 'WND', 'DFO', 'NG'}
+Longroad Energy Services LLC, {'SUN', 'WND'}
+Los Angeles Department of Water & Power, {'OOG', 'ORW', 'SUN', 'HPS', 'COL', 'WND', 'HYC', 'RFO', 'OTH', 'DFO', 'NG'}
+Madison Gas & Electric Co, {'WOO', 'SUN', 'COL', 'WND', 'DFO', 'NG'}
+Massachusetts Mun Wholes Electric Co, {'SUN', 'WND', 'OTH', 'DFO', 'NG'}
+Massachusetts Wtr Rauth-Deer I, {'ORW', 'SUN', 'WND', 'HYC', 'DFO'}
+MidAmerican Energy Co, {'COL', 'WND', 'HYC', 'OTH', 'DFO', 'NG'}
+Minnesota Municipal Power Agny, {'WND', 'DFO', 'NG'}
+Montana-Dakota Utilities Co, {'COL', 'WND', 'OTH', 'DFO', 'NG'}
+Nebraska Public Power District, {'COL', 'NUC', 'WND', 'HYC', 'RFO', 'DFO', 'NG'}
+Nome Joint Utility Systems, {'WND', 'DFO'}
+NorthWestern Energy, {'HYC', 'WND', 'DFO'}
+NorthWestern Energy - (SD), {'WND', 'DFO', 'NG'}
+Northern States Power Co - Minnesota, {'WWW', 'NG', 'PC', 'MLG', 'COL', 'WND', 'HYC', 'OTH', 'DFO', 'NUC'}
+Oklahoma Gas & Electric Co, {'WWW', 'SUN', 'COL', 'WND', 'RFO', 'OTH', 'DFO', 'NG'}
+Onward Energy, {'SUN', 'WND'}
+Otter Tail Power Co, {'ORW', 'COL', 'WND', 'HYC', 'DFO', 'NG'}
+PacifiCorp, {'SUN', 'COL', 'GEO', 'WND', 'HYC', 'DFO', 'NG'}
+Portland General Electric Co, {'SUN', 'COL', 'WND', 'HYC', 'OTH', 'DFO', 'NG'}
+Public Service Co of Colorado, {'SUN', 'HPS', 'COL', 'WND', 'HYC', 'OTH', 'DFO', 'NG'}
+Puget Sound Energy Inc, {'SUN', 'WND', 'HYC', 'OTH', 'DFO', 'NG'}
+RWE Renewables Americas LLC, {'SUN', 'WND', 'OTH'}
+Red Horse 2, {'SUN', 'WND'}
+S.C. Johnson & Son, Inc., {'WND', 'NG', 'MLG'}
+Sacramento Municipal Util Dist, {'HYC', 'ORW', 'WND', 'NG'}
+Southern Minnesota Mun P Agny, {'MLG', 'WND', 'DFO', 'NG'}
+Southern Power Co, {'WND', 'SUN', 'DFO', 'NG'}
+Southwestern Public Service Co, {'COL', 'WND', 'DFO', 'NG'}
+St. Olaf College, {'WND', 'DFO'}
+State-Fuel Level Increment, {'WWW', 'OOG', 'MLG', 'ORW', 'WOO', 'PC', 'SUN', 'HPS', 'COL', 'NUC', 'WND', 'HYC', 'RFO', 'OTH', 'DFO', 'NG'}
+SunEdison LLC, {'SUN', 'WND'}
+Sustainable Power Group, LLC, {'SUN', 'WND'}
+Tennessee Valley Authority, {'HPS', 'COL', 'NUC', 'WND', 'HYC', 'DFO', 'NG'}
+Town of Ipswich - (MA), {'WND', 'DFO', 'NG'}
+Turlock Irrigation District, {'HYC', 'WND', 'DFO', 'NG'}
+Union Electric Co - (MO), {'HPS', 'COL', 'NUC', 'WND', 'HYC', 'OTH', 'DFO', 'NG'}
+Utah Associated Mun Power Sys, {'WND', 'OTH', 'NG'}
+Waverly Municipal Elec Utility, {'WND', 'DFO', 'NG'}
+Willmar Municipal Utilities, {'ORW', 'COL', 'WND', 'DFO', 'NG'}
+Wisconsin Electric Power Co, {'WWW', 'COL', 'WND', 'HYC', 'DFO', 'NG'}
+Wisconsin Power & Light Co, {'COL', 'WND', 'HYC', 'DFO', 'NG'}
+Wisconsin Public Service Corp, {'SUN', 'COL', 'WND', 'HYC', 'DFO', 'NG'}
+
+Find the popular AER 
+Total counts per AER code:
+WND: 95
+OTH: 36
+SUN: 46
+WWW: 5
+COL: 30
+HYC: 27
+DFO: 58
+NG: 56
+WOO: 8
+HPS: 6
+RFO: 7
+PC: 3
+OOG: 3
+NUC: 7
+MLG: 6
+WOC: 1
+ORW: 6
+GEO: 1
+Find companies with HYC for possible takeover targets (given WOW! already works in HYC)
+Number of companies with both 'WND' and 'HYC' as their AER codes: 27
+ALLETE, Inc., ['WWW', 'COL', 'WND', 'HYC', 'DFO', 'NG']
+American Mun Power-Ohio, Inc, ['SUN', 'WND', 'HYC', 'DFO', 'NG']
+Brookfield Renewable Trading and Marketing LP, ['HYC', 'SUN', 'WND']
+Consumers Energy Co, ['SUN', 'HPS', 'COL', 'WND', 'HYC', 'RFO', 'OTH', 'DFO', 'NG']
+Empire District Electric Co, ['WOO', 'COL', 'WND', 'HYC', 'OTH', 'DFO', 'NG']
+Energy Northwest, ['SUN', 'WND', 'HYC', 'OTH', 'NUC']
+Green Mountain Power Corp, ['WOO', 'SUN', 'WND', 'HYC', 'OTH', 'DFO']
+Kodiak Electric Assn Inc, ['HYC', 'WND', 'DFO', 'OTH']
+Los Angeles Department of Water & Power, ['OOG', 'ORW', 'SUN', 'HPS', 'COL', 'WND', 'HYC', 'RFO', 'OTH', 'DFO', 'NG']
+Massachusetts Wtr Rauth-Deer I, ['ORW', 'SUN', 'WND', 'HYC', 'DFO']
+MidAmerican Energy Co, ['COL', 'WND', 'HYC', 'OTH', 'DFO', 'NG']
+Nebraska Public Power District, ['COL', 'NUC', 'WND', 'HYC', 'RFO', 'DFO', 'NG']
+NorthWestern Energy, ['HYC', 'WND', 'DFO']
+Northern States Power Co - Minnesota, ['WWW', 'NG', 'PC', 'MLG', 'COL', 'WND', 'HYC', 'OTH', 'DFO', 'NUC']
+Otter Tail Power Co, ['ORW', 'COL', 'WND', 'HYC', 'DFO', 'NG']
+PacifiCorp, ['SUN', 'COL', 'GEO', 'WND', 'HYC', 'DFO', 'NG']
+Portland General Electric Co, ['SUN', 'COL', 'WND', 'HYC', 'OTH', 'DFO', 'NG']
+Public Service Co of Colorado, ['SUN', 'HPS', 'COL', 'WND', 'HYC', 'OTH', 'DFO', 'NG']
+Puget Sound Energy Inc, ['SUN', 'WND', 'HYC', 'OTH', 'DFO', 'NG']
+Sacramento Municipal Util Dist, ['HYC', 'ORW', 'WND', 'NG']
+State-Fuel Level Increment, ['WWW', 'OOG', 'MLG', 'ORW', 'WOO', 'PC', 'SUN', 'HPS', 'COL', 'NUC', 'WND', 'HYC', 'RFO', 'OTH', 'DFO', 'NG']
+Tennessee Valley Authority, ['HPS', 'COL', 'NUC', 'WND', 'HYC', 'DFO', 'NG']
+Turlock Irrigation District, ['HYC', 'WND', 'DFO', 'NG']
+Union Electric Co - (MO), ['HPS', 'COL', 'NUC', 'WND', 'HYC', 'OTH', 'DFO', 'NG']
+Wisconsin Electric Power Co, ['WWW', 'COL', 'WND', 'HYC', 'DFO', 'NG']
+Wisconsin Power & Light Co, ['COL', 'WND', 'HYC', 'DFO', 'NG']
+Wisconsin Public Service Corp, ['SUN', 'COL', 'WND', 'HYC', 'DFO', 'NG']
+
+Explore turbine retrofit data: 
+Avg years from build to retrofit 
+Min Years: 0
+Max Years: 17
+Average Years: 12.13
+
+Avg age of turbine as of 2022 data 
+	Min age of turbines as of 2022: 1 years
+Max age of turbines as of 2022: 41 years
+Average age of turbines as of 2022: 10.35 years
+
+Researching O&M cost 
+
+Looking into possible takeover list: 
+
+Number of companies with both 'WND' and 'HYC' as their AER codes: 27
+~__~__~__~__~
+ALLETE, Inc.:
+  Code: HYC, Count: 11
+  Code: DFO, Count: 3
+  Code: NG, Count: 4
+  Code: COL, Count: 7
+  Code: WWW, Count: 1
+  Code: WND, Count: 5
+American Mun Power-Ohio, Inc:
+  Code: HYC, Count: 4
+  Code: DFO, Count: 16
+  Code: NG, Count: 7
+  Code: WND, Count: 1
+  Code: SUN, Count: 1
+Brookfield Renewable Trading and Marketing LP:
+  Code: HYC, Count: 1
+  Code: WND, Count: 8
+  Code: SUN, Count: 1
+Consumers Energy Co:
+  Code: HYC, Count: 13
+  Code: COL, Count: 4
+  Code: DFO, Count: 3
+  Code: NG, Count: 6
+  Code: RFO, Count: 1
+  Code: HPS, Count: 1
+  Code: WND, Count: 3
+  Code: SUN, Count: 2
+  Code: OTH, Count: 1
+Empire District Electric Co:
+  Code: NG, Count: 7
+  Code: DFO, Count: 4
+  Code: COL, Count: 2
+  Code: OTH, Count: 1
+  Code: WOO, Count: 2
+  Code: HYC, Count: 1
+  Code: WND, Count: 1
+Energy Northwest:
+  Code: NUC, Count: 1
+  Code: HYC, Count: 1
+  Code: WND, Count: 1
+  Code: OTH, Count: 1
+  Code: SUN, Count: 1
+Green Mountain Power Corp:
+  Code: HYC, Count: 32
+  Code: DFO, Count: 6
+  Code: WOO, Count: 2
+  Code: WND, Count: 2
+  Code: OTH, Count: 5
+  Code: SUN, Count: 9
+Kodiak Electric Assn Inc:
+  Code: HYC, Count: 1
+  Code: DFO, Count: 3
+  Code: WND, Count: 1
+  Code: OTH, Count: 2
+Los Angeles Department of Water & Power:
+  Code: HYC, Count: 14
+  Code: HPS, Count: 2
+  Code: DFO, Count: 9
+  Code: NG, Count: 16
+  Code: ORW, Count: 12
+  Code: RFO, Count: 1
+  Code: OOG, Count: 2
+  Code: COL, Count: 2
+  Code: WND, Count: 2
+  Code: SUN, Count: 8
+  Code: OTH, Count: 1
+Massachusetts Wtr Rauth-Deer I:
+  Code: DFO, Count: 2
+  Code: HYC, Count: 1
+  Code: SUN, Count: 1
+  Code: ORW, Count: 1
+  Code: WND, Count: 1
+MidAmerican Energy Co:
+  Code: NG, Count: 14
+  Code: HYC, Count: 1
+  Code: COL, Count: 9
+  Code: DFO, Count: 11
+  Code: WND, Count: 31
+  Code: OTH, Count: 1
+Nebraska Public Power District:
+  Code: NG, Count: 6
+  Code: RFO, Count: 1
+  Code: DFO, Count: 4
+  Code: HYC, Count: 2
+  Code: COL, Count: 2
+  Code: NUC, Count: 1
+  Code: WND, Count: 1
+NorthWestern Energy:
+  Code: HYC, Count: 10
+  Code: DFO, Count: 2
+  Code: WND, Count: 2
+Northern States Power Co - Minnesota:
+  Code: HYC, Count: 18
+  Code: NG, Count: 16
+  Code: DFO, Count: 12
+  Code: COL, Count: 4
+  Code: NUC, Count: 3
+  Code: MLG, Count: 3
+  Code: OTH, Count: 5
+  Code: WWW, Count: 3
+  Code: PC, Count: 1
+  Code: WND, Count: 9
+Otter Tail Power Co:
+  Code: HYC, Count: 1
+  Code: DFO, Count: 10
+  Code: COL, Count: 3
+  Code: ORW, Count: 1
+  Code: NG, Count: 1
+  Code: WND, Count: 4
+PacifiCorp:
+  Code: HYC, Count: 35
+  Code: GEO, Count: 1
+  Code: NG, Count: 9
+  Code: DFO, Count: 7
+  Code: COL, Count: 8
+  Code: WND, Count: 12
+  Code: SUN, Count: 1
+Portland General Electric Co:
+  Code: HYC, Count: 8
+  Code: DFO, Count: 3
+  Code: COL, Count: 1
+  Code: NG, Count: 10
+  Code: WND, Count: 3
+  Code: SUN, Count: 1
+  Code: OTH, Count: 1
+Public Service Co of Colorado:
+  Code: DFO, Count: 5
+  Code: NG, Count: 17
+  Code: HPS, Count: 1
+  Code: COL, Count: 4
+  Code: HYC, Count: 5
+  Code: WND, Count: 2
+  Code: OTH, Count: 1
+  Code: SUN, Count: 1
+Puget Sound Energy Inc:
+  Code: DFO, Count: 8
+  Code: NG, Count: 13
+  Code: HYC, Count: 4
+  Code: WND, Count: 3
+  Code: SUN, Count: 1
+  Code: OTH, Count: 1
+Sacramento Municipal Util Dist:
+  Code: HYC, Count: 8
+  Code: NG, Count: 11
+  Code: WND, Count: 1
+  Code: ORW, Count: 4
+State-Fuel Level Increment:
+  Code: OTH, Count: 10
+  Code: DFO, Count: 32
+  Code: NG, Count: 64
+  Code: WOO, Count: 2
+  Code: OOG, Count: 3
+  Code: HYC, Count: 5
+  Code: MLG, Count: 2
+  Code: ORW, Count: 2
+  Code: HPS, Count: 1
+  Code: SUN, Count: 16
+  Code: COL, Count: 9
+  Code: NUC, Count: 1
+  Code: PC, Count: 1
+  Code: RFO, Count: 4
+  Code: WWW, Count: 2
+  Code: WND, Count: 8
+Tennessee Valley Authority:
+  Code: NUC, Count: 7
+  Code: DFO, Count: 17
+  Code: NG, Count: 25
+  Code: HYC, Count: 29
+  Code: COL, Count: 23
+  Code: HPS, Count: 2
+  Code: WND, Count: 1
+Turlock Irrigation District:
+  Code: HYC, Count: 7
+  Code: DFO, Count: 1
+  Code: NG, Count: 4
+  Code: WND, Count: 1
+Union Electric Co - (MO):
+  Code: DFO, Count: 11
+  Code: NG, Count: 9
+  Code: HYC, Count: 2
+  Code: COL, Count: 8
+  Code: OTH, Count: 1
+  Code: HPS, Count: 1
+  Code: NUC, Count: 1
+  Code: WND, Count: 1
+Wisconsin Electric Power Co:
+  Code: HYC, Count: 13
+  Code: NG, Count: 9
+  Code: COL, Count: 6
+  Code: DFO, Count: 4
+  Code: WND, Count: 3
+  Code: WWW, Count: 1
+Wisconsin Power & Light Co:
+  Code: DFO, Count: 5
+  Code: COL, Count: 3
+  Code: HYC, Count: 2
+  Code: NG, Count: 9
+  Code: WND, Count: 3
+Wisconsin Public Service Corp:
+  Code: HYC, Count: 12
+  Code: DFO, Count: 7
+  Code: NG, Count: 7
+  Code: COL, Count: 2
+  Code: WND, Count: 2
+  Code: SUN, Count: 1
+
+Pos List based off low plant count and overall low multiple AER 
+
+Brookfield Renewable Trading and Marketing LP:
+  Code: HYC, Count: 1
+  Code: WND, Count: 8
+  Code: SUN, Count: 1
+Energy Northwest:
+  Code: NUC, Count: 1
+  Code: HYC, Count: 1
+  Code: WND, Count: 1
+  Code: OTH, Count: 1
+  Code: SUN, Count: 1
+Kodiak Electric Assn Inc:
+  Code: HYC, Count: 1
+  Code: DFO, Count: 3
+  Code: WND, Count: 1
+  Code: OTH, Count: 2
+
+Cost of rotor research: 
+Unable to find set cost. 
+the number I’ve been seeing for avg O&M is $48,000/MW, on a 1.5 MW that would be $72,000.
+
+Find avg year of turbine per manufacturer:
+Tableau calc field 2022 - [p year] 
+Add avg to visualization.
+
+Presentation work:
+Some work on presentation color and titles.
+Adding some lists and data.
+Collecting tableau visualization in one dashboard file.
+Work with John to show all data points on non-moving animation: 
+Sync title and label styles.
+Sync colors when applicable.
+
+More work on presentation: 
+	Input static viz on slides. 
+Work on global visualization: 
+Could not get it to percent of total for visualization. 
+Viz posted to powerpoint.
+
+Get top list capacity:
+Top 15 with capacity:
+MidAmerican Energy Co: 653648.61
+Avangrid Renewables LLC: 602660.31
+RWE Renewables Americas LLC: 580739.56
+EDF Renewable Asset Holdings, Inc.: 362329.1
+AE Power Services LLC: 309148.8
+Invenergy Services LLC: 300765.39
+Pattern Operators LP: 214818.05
+Public Service Co of Colorado: 212779.2
+Southern Power Co: 175951.74
+Engie North America: 148557.75
+Leeward Asset Management, LLC: 145924.92
+BHE Renewables, LLC: 140852.0
+Capricorn Ridge Wind LLC: 135179.0
+Enel Green Power NA, Inc.: 132490.72
+Southwestern Public Service Co: 124949.2
